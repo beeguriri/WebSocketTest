@@ -2,6 +2,7 @@ package com.example.websocket_test.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -21,6 +22,12 @@ public class WebSocketHandler extends TextWebSocketHandler {
         CLIENTS.put(session.getId(), session);
         session.sendMessage(new TextMessage("Success Connection!"));
         log.info("sessionID = {}", session.getId());
+        log.info("map 확인 = {}", CLIENTS.get(session.getId()));
+    }
+
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        CLIENTS.remove(session.getId());
         log.info("map 확인 = {}", CLIENTS.get(session.getId()));
     }
 
