@@ -3,12 +3,12 @@ package com.example.websocket_test.model;
 import lombok.*;
 
 @Getter
-@Builder
+//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Message {
 
-    private String type;
+//    private String type;
     private String sender;
     private String channelId;
     private String data;
@@ -17,11 +17,11 @@ public class Message {
         this.sender = sender;
     }
 
-    public void newContent() {
-        this.type = "new";
-    }
-
-    public void closeConnect() {
-        this.type = "close";
-    }
+//    public void newContent() {
+//        this.type = "new";
+//    }
+//
+//    public void closeConnect() {
+//        this.type = "close";
+//    }
 }

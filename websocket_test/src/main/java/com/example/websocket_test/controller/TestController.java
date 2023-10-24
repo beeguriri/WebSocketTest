@@ -17,9 +17,9 @@ public class TestController {
     /pub/test               - 메시지 발행
     */
 
-    @MessageMapping("/hello")
+    @MessageMapping("/test")
     public void message(Message message) {
-        simpMessageSendingOperations.convertAndSend("/sub/channel/"+message.getChannelId(), message);
+        simpMessageSendingOperations.convertAndSend("/sub/test/"+message.getChannelId(), message);
     }
 
 }
