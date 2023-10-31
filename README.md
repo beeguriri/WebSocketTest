@@ -35,7 +35,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 ```
 - 클라이언트 측 구현
 ```javascript
-webSocket = new WebSocket("ws://localhost:8080/siteId");
+webSocket = new WebSocket("ws://localhost:8080/test");
 webSocket.onopen = onOpen; //웹소켓 연결 발생
 webSocket.onclose = onClose; //웹소켓 연결 종료
 webSocket.onmessage = onMessage; //웹소켓으로 연결 된 서버로부터 메시지 수신
