@@ -22,7 +22,11 @@ public class WebSocketEndpoint {
         log.info("받은 메시지: {}", message);
 
         //클라이언트로 메시지 보내기
-        session.getBasicRemote().sendText("서버에서 받은 메시지: " + message);
+        //클라이언트로부터 받은 ping 메시지에 대한 응답으로 pong 메시지 보냄
+        if(message.equals("ping"))
+            session.getBasicRemote().sendText("pong");
+        else
+            session.getBasicRemote().sendText("서버에서 받은 메시지 재전송: " + message);
     }
 
     @OnClose
