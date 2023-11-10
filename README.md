@@ -5,7 +5,7 @@
 - [서버와 서버 간 웹소켓 연결 시 `@ServerEndpoint` 와 `@ClientEndpoint` 사용](#server-to-server)
 
 # WebSocketTest v2
-- [서버와 서버 간 웹소켓 연결 시 `Endpoint` 상속받아 구현](#websockettest-v2)
+- [서버와 서버 간 웹소켓 연결 시 `Endpoint` 상속받아 구현](#websockettest-v2-1)
 
 ## WebSocket
 - 웹소켓 서버 구현
@@ -137,8 +137,8 @@ public class ServerEndpointConfigurator extends ServerEndpointConfig.Configurato
 
 //빈 등록 후 사용하기
 @Bean
-	public ServerEndpointExporter serverEndpointExporter() {
-		return new ServerEndpointExporter();
+public ServerEndpointExporter serverEndpointExporter() {
+	return new ServerEndpointExporter();
 }
 ```
 - `@ClientEndpoint` 구현
