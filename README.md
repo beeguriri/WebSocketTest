@@ -4,6 +4,9 @@
 - [`STOMP` 사용](#stomp)
 - [서버와 서버 간 웹소켓 연결 시 `@ServerEndpoint` 와 `@ClientEndpoint` 사용](#server-to-server)
 
+# WebSocketTest v2
+- [서버와 서버 간 웹소켓 연결 시 `Endpoint` 상속받아 구현](#websockettest-v2)
+
 ## WebSocket
 - 웹소켓 서버 구현
 ```java
@@ -143,37 +146,45 @@ public class ServerEndpointConfigurator extends ServerEndpointConfig.Configurato
 @ClientEndpoint
 public class WebSocketClient {
 
-		//웹소켓 연결 위한 메서드
-		public void connectWebSocketClient() {
-	        try{
-	            WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-	            container.connectToServer(this, new URI("ws://localhost:8080/test"));
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-    }
+	//웹소켓 연결 위한 메서드
+	public void connectWebSocketClient() {
+	try{
+	    WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+	    container.connectToServer(this, new URI("ws://localhost:8080/test"));
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
+    
 
-    @OnOpen
-    public void onOpen(Session session){
-        this.session = session;
-    }
-
-    //서버로부터 메시지 받기
-    @OnMessage
-    public void onMessage(String message) {}
-
-    @OnClose
-    public void onClose() throws IOException {
-        this.session.close();
-    }
-
-    @OnError
-    public void onError(Throwable throwable) {}
-
-		//서버에 메시지 보내기
-    public void sendMessage(String message) throws IOException {
-        session.getBasicRemote().sendText(message);
-    }
+	@OnOpen
+	public void onOpen(Session session){
+	this.session = session;
+	}
+	
+	//서버로부터 메시지 받기
+	@OnMessage
+	public void onMessage(String message) {}
+	
+	@OnClose
+	public void onClose() throws IOException {
+	this.session.close();
+	}
+	
+	@OnError
+	public void onError(Throwable throwable) {}
+	
+	//서버에 메시지 보내기
+	public void sendMessage(String message) throws IOException {
+	session.getBasicRemote().sendText(message);
+	}
 }
 ```
 - 같은 어플리케이션 내에서 웹소켓 세션 중복되지 않도록 싱글톤으로 관리
+
+## WebSocketTest v2
+- 서버와 서버 간 웹소켓 연결 시 `Endpoint` 상속받아 구현
+- 어노테이션을 사용할 때와는 달리
+- `onOpen`, `onClose`, `onError` 구현해주어야 하고
+- `onMessage` 대신 `MessageHandler.Whole<String>`를 상속받은 MessageHandler 구현해 주어야 하나
+- 웹소켓 서버와 최초 연결 시 헤더정보를 보내는 등의 설정을 위해 사용함
+  - `ClientEndpointConfig.Configurator`를 상속받아 서버간 최초의 연결(handshake) 전에 header 정보 등을 설정
