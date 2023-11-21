@@ -7,6 +7,9 @@
 # WebSocketTest v2
 - [서버와 서버 간 웹소켓 연결 시 `Endpoint` 상속받아 구현](#websockettest-v2-1)
 
+# WebSocketTest v3
+- [서버와 서버 간 웹소켓 연결 시 `springframework.web.socket.*` 사용](#websockettest-v3-1)
+
 ## WebSocket
 - 웹소켓 서버 구현
 ```java
@@ -188,3 +191,9 @@ public class WebSocketClient {
 - `onMessage` 대신 `MessageHandler.Whole<String>`를 상속받은 MessageHandler 구현해 주어야 하나
 - 웹소켓 서버와 최초 연결 시 헤더정보를 보내는 등의 설정을 위해 사용함
   - `ClientEndpointConfig.Configurator`를 상속받아 서버간 최초의 연결(handshake) 전에 header 정보 등을 설정
+ 
+## WebSocketTest v3
+- 스프링부트에서 제공하는 websocket 사용
+- websocket 최초 연결 시 http연결과 동일하게 header에 data 추가하여 요청 할 수 있음
+- 보통 인증정보 등을 실어 보냄
+
